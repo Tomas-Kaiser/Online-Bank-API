@@ -6,26 +6,21 @@ package com.mycompany.onlinebankingservice.services;
 import com.mycompany.onlinebankingservice.databases.Database;
 import com.mycompany.onlinebankingservice.models.Account;
 import com.mycompany.onlinebankingservice.models.Customer;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Tomas
  */
-public class CustomerService {
+public class AccountService {
 
     private Database db = new Database();
 
     private List<Customer> customers = db.getAllCustomers();
+    //private List<Account> accounts = db.getAllAccountDB();
 
-    public List<Customer> getAllCustomers() {
-        return customers;
-    }
-
-    public Customer getCustomerById(int id) {
-        return customers.get(id - 1);
-    }
-
-    public Customer getCustomer(int accountNum, int password) {
+    // return all accounts related to the customer
+    public List<Account> getAllAccounts(int accountNum, int password) {
         for (Customer c : customers) {           
             boolean accountMatch = false;
             for (Account a : c.getAccounts()){
@@ -34,17 +29,9 @@ public class CustomerService {
             }
             
             if ((accountMatch) && c.getSecurityCredential() == password)
-                return c;
-
+                return c.getAccounts();
         }
+        
         return null;
-    }
-
-    public Customer getCreateCustomer(Customer c) {
-        c.setId(customers.size() + 1);
-
-        customers.add(c);
-
-        return c;
     }
 }

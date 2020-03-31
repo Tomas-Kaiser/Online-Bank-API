@@ -20,9 +20,9 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/customers")
 @Produces(MediaType.APPLICATION_JSON)
-public class CustomerResources {
+public class CustomerResource {
 
-    CustomerService customerService = new CustomerService();
+    private CustomerService customerService = new CustomerService();
     
     @GET
     public List<Customer> getAllCustomers(){
@@ -46,5 +46,10 @@ public class CustomerResources {
     @POST
     public Customer createCustomer(Customer c){
         return customerService.getCreateCustomer(c);
+    }
+    
+    @Path("/{accountNum}/{password}/accounts")
+    public AccountResource getAccountResource(){
+        return new AccountResource();
     }
 }

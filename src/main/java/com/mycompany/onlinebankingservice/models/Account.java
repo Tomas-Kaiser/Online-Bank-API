@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * @author Tomas
  */
-
 @XmlRootElement
 public class Account {
     private int id;
