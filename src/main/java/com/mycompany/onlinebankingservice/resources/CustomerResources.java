@@ -29,10 +29,18 @@ public class CustomerResources {
         return customerService.getAllCustomers();
     }
     
+    /*
     @GET
     @Path("/{customerId}")
     public Customer getCustomerById(@PathParam("customerId") int id){
         return customerService.getCustomerById(id);
+    }
+    */
+    
+    @GET
+    @Path("/{accountNum}/{password}")
+    public Customer getCustomer(@PathParam("accountNum") int accountNum, @PathParam("password") int password){
+        return customerService.getCustomer(accountNum, password);
     }
     
     @POST
