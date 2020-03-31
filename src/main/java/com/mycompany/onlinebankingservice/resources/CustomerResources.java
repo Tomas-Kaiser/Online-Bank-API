@@ -8,7 +8,9 @@ import com.mycompany.onlinebankingservice.models.Customer;
 import com.mycompany.onlinebankingservice.services.CustomerService;
 import java.util.List;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -17,7 +19,7 @@ import javax.ws.rs.core.MediaType;
  */
 
 @Path("/customers")
-@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+@Produces(MediaType.APPLICATION_JSON)
 public class CustomerResources {
 
     CustomerService customerService = new CustomerService();
@@ -25,5 +27,16 @@ public class CustomerResources {
     @GET
     public List<Customer> getAllCustomers(){
         return customerService.getAllCustomers();
+    }
+    
+    @GET
+    @Path("/{customerId}")
+    public Customer getCustomerById(@PathParam("customerId") int id){
+        return customerService.getCustomerById(id);
+    }
+    
+    @POST
+    public Customer createCustomer(Customer c){
+        return customerService.getCreateCustomer(c);
     }
 }

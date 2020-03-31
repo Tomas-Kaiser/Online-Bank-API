@@ -20,4 +20,16 @@ public class CustomerService {
     public List<Customer> getAllCustomers(){       
         return customers;
     }
+    
+    public Customer getCustomerById(int id){
+        return customers.get(id - 1);
+    }
+    
+    public Customer getCreateCustomer(Customer c){
+        c.setId(customers.size() + 1);
+        
+        customers.add(c);
+    
+        return c;
+    }
 }
