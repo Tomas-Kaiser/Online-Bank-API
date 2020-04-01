@@ -8,6 +8,7 @@ import com.mycompany.onlinebankingservice.models.Account;
 import com.mycompany.onlinebankingservice.services.AccountService;
 import java.util.List;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -28,8 +29,16 @@ public class AccountResource {
         return accountService.getAllAccounts(accountNum, password);
     }
     
+    @POST
+    public Account getCreateAccount(@PathParam("accountNum") int accountNum, @PathParam("password") int password, Account acc){
+        return accountService.getCreateAccount(accountNum, password, acc);
+    }
+    
     @Path("/transactions")
     public TransactionResource getTransactionResource(){
         return new TransactionResource();
     }
+    
+    
+    
 }
