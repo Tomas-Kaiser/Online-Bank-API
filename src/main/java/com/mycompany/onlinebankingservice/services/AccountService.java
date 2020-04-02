@@ -21,20 +21,13 @@ public class AccountService {
     //private List<Account> accounts = db.getAllAccountDB();
 
     // return the account related to the customer
-    public Account getAccount(int accountNum, int password) {
-        return selectAccount(accountNum, password);
+    public Account getAccount(String email, int password, int accNum) {
+        return selectAccount(email, password, accNum);
     }
 
-    public Account getCreateAccount(int accountNum, int password, Account acc) {
+    public Account getCreateAccount(String email, int password, int AccNum, Account acc) {
         for (Customer c : customers) {
-            boolean accountMatch = false;
-            for (Account a : c.getAccounts()) {
-                if (a.getAccountNumber() == accountNum) {
-                    accountMatch = true;
-                }
-            }
-
-            if ((accountMatch) && c.getSecurityCredential() == password) {
+            if (c.getEmail().equalsIgnoreCase(email) && c.getSecurityCredential() == password) {
                 acc.setId(c.getAccounts().size() + 1);            
                 acc.setAccountNumber(createAccountNumber());
                 acc.setTransactions(null); // TODO: Has this have any effect?
@@ -47,18 +40,18 @@ public class AccountService {
         return null;
     }
 
-    private Account selectAccount(int accountNum, int password) {
+    private Account selectAccount(String email, int password, int accNum) {
         for (Customer c : customers) {
             Account currentAccount = new Account();
             boolean accountMatch = false;
             for (Account a : c.getAccounts()) {
-                if (a.getAccountNumber() == accountNum) {
+                if (a.getAccountNumber() == accNum) {
                     currentAccount = a;
                     accountMatch = true;
                 }
             }
-
-            if ((accountMatch) && c.getSecurityCredential() == password) {
+            
+            if ((accountMatch) && c.getSecurityCredential() == password && c.getEmail().equalsIgnoreCase(email)) {
                 return accountMatch ? currentAccount : null;
             }
         }

@@ -19,49 +19,45 @@ public class TransactionService {
 
     private List<Customer> customers = db.getAllCustomers();
 
-    public List<Transaction> getAllTransaction(int accountNum, int password) {
+    public List<Transaction> getAllTransaction(String email, int password, int accNum) {
         // Select the customer
         for (Customer c : customers) {
             boolean accountMatch = false;
+            Account currentAccount = new Account();
             for (Account a : c.getAccounts()) {
-                if (a.getAccountNumber() == accountNum) {
+                if (a.getAccountNumber() == accNum) {
+                    currentAccount = a;
                     accountMatch = true;
                 }
             }
 
             // If customer exists, select the transaction related to the account number
-            if ((accountMatch) && c.getSecurityCredential() == password) {
-                for (Account a : c.getAccounts()) {
-                    if (a.getAccountNumber() == accountNum) {
-                        return a.getTransactions();
-                    }
-                }
+            if ((accountMatch) && c.getSecurityCredential() == password && c.getEmail().equalsIgnoreCase(email)) {
+                return accountMatch ? currentAccount.getTransactions() : null;
             }
         }
         return null;
     }
 
-    public Transaction getCreateTransaction(int accountNum, int password, Transaction tran) {
+    public Transaction getCreateTransaction(String email, int password, int accNum, Transaction tran) {
         // Select the customer
         for (Customer c : customers) {
             boolean accountMatch = false;
+            Account currentAccount = new Account();
             for (Account a : c.getAccounts()) {
-                if (a.getAccountNumber() == accountNum) {
+                if (a.getAccountNumber() == accNum) {
+                    currentAccount = a;
                     accountMatch = true;
                 }
             }
 
             // If customer exists, select the transaction related to the account number
-            if ((accountMatch) && c.getSecurityCredential() == password) {
-                for (Account a : c.getAccounts()) {
-                    if (a.getAccountNumber() == accountNum) {
-                        tran.setId(a.getTransactions().size() + 1);
-                        tran.setCreated(new Date());
-                        
-                        a.getTransactions().add(tran);
-                        return tran;
-                    }
-                }
+            if ((accountMatch) && c.getSecurityCredential() == password && c.getEmail().equalsIgnoreCase(email)) {
+                tran.setId(currentAccount.getTransactions().size() + 1);
+                tran.setCreated(new Date());
+                currentAccount.getTransactions().add(tran);
+                
+                return tran;
             }
         }
 

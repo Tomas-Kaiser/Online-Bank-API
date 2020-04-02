@@ -26,12 +26,12 @@ public class TransactionResource {
     
     // Get all transaction related to the customer and type of account
     @GET
-    public List<Transaction> getAllTransaction(@PathParam("accountNum") int accountNum, @PathParam("password") int password){
-        return transactionService.getAllTransaction(accountNum, password);
+    public List<Transaction> getAllTransaction(@PathParam("email") String email, @PathParam("password") int password, @PathParam("accNum") int accNum){
+        return transactionService.getAllTransaction(email, password, accNum);
     }
     
     @POST
-    public Transaction getCreateTransaction(@PathParam("accountNum") int accountNum, @PathParam("password") int password, Transaction tran){
-        return transactionService.getCreateTransaction(accountNum, password, tran);
+    public Transaction getCreateTransaction(@PathParam("email") String email, @PathParam("password") int password, @PathParam("accNum") int accNum, Transaction tran){
+        return transactionService.getCreateTransaction(email, password, accNum, tran);
     }
 }

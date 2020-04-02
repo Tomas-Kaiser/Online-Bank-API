@@ -38,9 +38,9 @@ public class CustomerResource {
     */
     
     @GET
-    @Path("/{accountNum}/{password}")
-    public Customer getCustomer(@PathParam("accountNum") int accountNum, @PathParam("password") int password){
-        return customerService.getCustomer(accountNum, password);
+    @Path("/{email}/{password}")
+    public Customer getCustomer(@PathParam("email") String email, @PathParam("password") int password){
+        return customerService.getCustomer(email, password);
     }
     
     @POST
@@ -48,7 +48,7 @@ public class CustomerResource {
         return customerService.getCreateCustomer(c);
     }
     
-    @Path("/{accountNum}/{password}/account")
+    @Path("/{email}/{password}/accounts")
     public AccountResource getAccountResource(){
         return new AccountResource();
     }

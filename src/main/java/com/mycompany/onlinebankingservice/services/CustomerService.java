@@ -7,6 +7,7 @@ import com.mycompany.onlinebankingservice.databases.Database;
 import com.mycompany.onlinebankingservice.models.Account;
 import com.mycompany.onlinebankingservice.models.Customer;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Tomas
@@ -16,17 +17,17 @@ public class CustomerService {
     private Database db = new Database();
 
     private List<Customer> customers = db.getAllCustomers();
-    
+
     public List<Customer> getAllCustomers() {
         return customers;
     }
-    
+
     public Customer getCustomerById(int id) {
         return customers.get(id - 1);
     }
 
-    public Customer getCustomer(int accountNum, int password) {
-        return selectCustomer(accountNum, password);
+    public Customer getCustomer(String email, int password) {
+        return selectCustomer(email, password);
     }
 
     public Customer getCreateCustomer(Customer c) {
@@ -37,16 +38,9 @@ public class CustomerService {
         return c;
     }
 
-    private Customer selectCustomer(int accountNum, int password) {
+    private Customer selectCustomer(String email, int password) {
         for (Customer c : customers) {
-            boolean accountMatch = false;
-            for (Account a : c.getAccounts()) {
-                if (a.getAccountNumber() == accountNum) {
-                    accountMatch = true;
-                }
-            }
-
-            if ((accountMatch) && c.getSecurityCredential() == password) {
+            if ((c.getEmail().equalsIgnoreCase(email)) && c.getSecurityCredential() == password) {
                 return c;
             }
         }
