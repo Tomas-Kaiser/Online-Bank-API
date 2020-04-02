@@ -8,6 +8,7 @@ import com.mycompany.onlinebankingservice.models.Transaction;
 import com.mycompany.onlinebankingservice.services.TransactionService;
 import java.util.List;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -27,5 +28,10 @@ public class TransactionResource {
     @GET
     public List<Transaction> getAllTransaction(@PathParam("accountNum") int accountNum, @PathParam("password") int password){
         return transactionService.getAllTransaction(accountNum, password);
+    }
+    
+    @POST
+    public Transaction getCreateTransaction(@PathParam("accountNum") int accountNum, @PathParam("password") int password, Transaction tran){
+        return transactionService.getCreateTransaction(accountNum, password, tran);
     }
 }
