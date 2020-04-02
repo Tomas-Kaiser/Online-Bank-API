@@ -1,7 +1,6 @@
 /*
  * Copyright 2020, Tomas.
  */
-
 package com.mycompany.onlinebankingservice.resources;
 
 import com.mycompany.onlinebankingservice.models.Account;
@@ -17,34 +16,31 @@ import javax.ws.rs.core.MediaType;
 /**
  * @author Tomas
  */
-
 @Path("/accounts")
 @Produces(MediaType.APPLICATION_JSON)
 public class AccountResource {
-    
+
     private AccountService accountService = new AccountService();
-    
-    // TODO get all accounts
-    
+
     @GET
-    @Path("/{accNum}")
-    public Account getAccount(@PathParam("email") String email, @PathParam("password") int password, @PathParam("accNum") int accNum){
-        System.out.println("Email passed is: " + email);
-        System.out.println("pwd passed: " + password);
-        return accountService.getAccount(email, password, accNum);
+    public List<Account> getAllAccounts(@PathParam("email") String email, @PathParam("password") int password){
+        return accountService.getAllAccounts(email, password);
     }
     
     @POST
-    @Path("/{accNum}")
-    public Account getCreateAccount(@PathParam("email") String email, @PathParam("password") int password, @PathParam("accNum") int accNum, Account acc){
-        return accountService.getCreateAccount(email, password, accNum, acc);
+    public Account getCreateAccount(@PathParam("email") String email, @PathParam("password") int password, Account acc) {
+        return accountService.getCreateAccount(email, password, acc);
     }
-    
+
+    @GET
+    @Path("/{accNum}")
+    public Account getAccount(@PathParam("email") String email, @PathParam("password") int password, @PathParam("accNum") int accNum) {
+        return accountService.getAccount(email, password, accNum);
+    }
+
     @Path("/{accNum}/transactions")
-    public TransactionResource getTransactionResource(){
+    public TransactionResource getTransactionResource() {
         return new TransactionResource();
     }
-    
-    
-    
+
 }

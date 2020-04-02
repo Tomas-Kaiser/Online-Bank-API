@@ -32,7 +32,6 @@ public class CustomerService {
 
     public Customer getCreateCustomer(Customer c) {
         c.setId(customers.size() + 1);
-
         customers.add(c);
 
         return c;
