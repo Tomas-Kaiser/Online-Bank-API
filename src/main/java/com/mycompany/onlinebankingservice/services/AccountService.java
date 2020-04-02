@@ -20,25 +20,11 @@ public class AccountService {
     private List<Customer> customers = db.getAllCustomers();
     //private List<Account> accounts = db.getAllAccountDB();
 
-    // return all accounts related to the customer
-    public List<Account> getAllAccounts(int accountNum, int password) {
-        for (Customer c : customers) {
-            boolean accountMatch = false;
-            for (Account a : c.getAccounts()) {
-                if (a.getAccountNumber() == accountNum) {
-                    accountMatch = true;
-                }
-            }
-
-            if ((accountMatch) && c.getSecurityCredential() == password) {
-                return c.getAccounts();
-            }
-        }
-
-        return null;
+    // return the account related to the customer
+    public Account getAccount(int accountNum, int password) {
+        return selectAccount(accountNum, password);
     }
 
-    // Create a new account
     public Account getCreateAccount(int accountNum, int password, Account acc) {
         for (Customer c : customers) {
             boolean accountMatch = false;
@@ -49,22 +35,38 @@ public class AccountService {
             }
 
             if ((accountMatch) && c.getSecurityCredential() == password) {
-                acc.setId(c.getAccounts().size() + 1);
-                System.out.println("set Id: " + (c.getAccounts().size() - 1));
+                acc.setId(c.getAccounts().size() + 1);            
+                acc.setAccountNumber(createAccountNumber());
+                acc.setTransactions(null); // TODO: Has this have any effect?
                 
-                Random randomNum = new Random();
-                
-                int accNum = randomNum.nextInt((99999999 - 10000000)+1) + 10000000;
-                System.out.println("New account number: " + accNum);
-                acc.setAccountNumber(accNum);
-                
-                acc.setTransactions(null);
-
                 c.getAccounts().add(acc);
 
                 return acc;
-            }         
+            }
         }
         return null;
+    }
+
+    private Account selectAccount(int accountNum, int password) {
+        for (Customer c : customers) {
+            Account currentAccount = new Account();
+            boolean accountMatch = false;
+            for (Account a : c.getAccounts()) {
+                if (a.getAccountNumber() == accountNum) {
+                    currentAccount = a;
+                    accountMatch = true;
+                }
+            }
+
+            if ((accountMatch) && c.getSecurityCredential() == password) {
+                return accountMatch ? currentAccount : null;
+            }
+        }
+        return null;
+    }
+    
+    private int createAccountNumber(){
+        Random randomNum = new Random();
+        return randomNum.nextInt((99999999 - 10000000) + 1) + 10000000;
     }
 }

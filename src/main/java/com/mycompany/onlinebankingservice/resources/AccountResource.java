@@ -18,15 +18,15 @@ import javax.ws.rs.core.MediaType;
  * @author Tomas
  */
 
-@Path("/accounts")
+@Path("/account")
 @Produces(MediaType.APPLICATION_JSON)
 public class AccountResource {
     
     private AccountService accountService = new AccountService();
     
     @GET
-    public List<Account> getAllAccounts(@PathParam("accountNum") int accountNum, @PathParam("password") int password){
-        return accountService.getAllAccounts(accountNum, password);
+    public Account getAccount(@PathParam("accountNum") int accountNum, @PathParam("password") int password){
+        return accountService.getAccount(accountNum, password);
     }
     
     @POST

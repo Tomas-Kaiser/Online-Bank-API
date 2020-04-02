@@ -48,7 +48,7 @@ public class CustomerResource {
         return customerService.getCreateCustomer(c);
     }
     
-    @Path("/{accountNum}/{password}/accounts")
+    @Path("/{accountNum}/{password}/account")
     public AccountResource getAccountResource(){
         return new AccountResource();
     }
