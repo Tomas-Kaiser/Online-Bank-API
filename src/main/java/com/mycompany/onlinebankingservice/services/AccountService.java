@@ -58,10 +58,17 @@ public class AccountService {
         Account acc = selectAccount(email, password, accNum);
         return acc.getCurrentBalance();
     }
-    
-    public Double getWithdrawal(String email, int password, int accNum, double amount){
+
+    public Double getWithdrawal(String email, int password, int accNum, double amount) {
         Account acc = selectAccount(email, password, accNum);
         double newBalance = acc.getCurrentBalance() - amount;
+        acc.setCurrentBalance(newBalance);
+        return newBalance;
+    }
+
+    public Double getLodgement(String email, int password, int accNum, double amount) {
+        Account acc = selectAccount(email, password, accNum);
+        double newBalance = acc.getCurrentBalance() + amount;
         acc.setCurrentBalance(newBalance);
         return newBalance;
     }
