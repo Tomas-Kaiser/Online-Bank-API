@@ -61,6 +61,14 @@ public class AccountResource {
         return accountService.getLodgement(email, password, accNum, amount);
     }
 
+    @GET
+    @Path("/{accNum}/transfer/{accNumReceiver}/{amount}")
+    @Produces("text/plain")
+    public double getTransfer(@PathParam("email") String email, @PathParam("password") int password,
+            @PathParam("accNum") int accNum, @PathParam("accNumReceiver") int accNumReceiver, @PathParam("amount") int amount) {
+        return accountService.getTransfer(email, password, accNum, accNumReceiver, amount);
+    }
+
     @Path("/{accNum}/transactions")
     public TransactionResource getTransactionResource() {
         return new TransactionResource();

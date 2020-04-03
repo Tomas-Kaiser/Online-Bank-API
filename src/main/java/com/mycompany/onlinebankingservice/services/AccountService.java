@@ -73,6 +73,26 @@ public class AccountService {
         return newBalance;
     }
 
+    public Double getTransfer(String email, int password, int accNum, int accNumReceiver, double amount) {
+        Account accSender = selectAccount(email, password, accNum);
+        double newBalance = accSender.getCurrentBalance() - amount;
+        accSender.setCurrentBalance(newBalance);
+
+        Account accReceiver = new Account();
+        for (Customer c : customers) {
+            for (Account a : c.getAccounts()) {
+                if (a.getAccountNumber() == accNumReceiver) {
+                    accReceiver = a;
+                }
+            }
+        }
+        
+        newBalance = accReceiver.getCurrentBalance() + amount;
+        accReceiver.setCurrentBalance(newBalance);
+        
+        return newBalance;
+    }
+
     private Account selectAccount(String email, int password, int accNum) {
         for (Customer c : customers) {
             Account currentAccount = new Account();
