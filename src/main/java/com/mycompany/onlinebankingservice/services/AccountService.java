@@ -56,9 +56,14 @@ public class AccountService {
 
     public Double getBalance(String email, int password, int accNum) {
         Account acc = selectAccount(email, password, accNum);
-        System.out.println("****************************************");
-        System.out.println("Ballance: " + acc.getCurrentBalance());
         return acc.getCurrentBalance();
+    }
+    
+    public Double getWithdrawal(String email, int password, int accNum, double amount){
+        Account acc = selectAccount(email, password, accNum);
+        double newBalance = acc.getCurrentBalance() - amount;
+        acc.setCurrentBalance(newBalance);
+        return newBalance;
     }
 
     private Account selectAccount(String email, int password, int accNum) {

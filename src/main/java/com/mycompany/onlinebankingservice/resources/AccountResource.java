@@ -45,6 +45,14 @@ public class AccountResource {
         return accountService.getBalance(email, password, accNum);
     }
 
+    @GET
+    @Path("/{accNum}/withdrawal/{amount}")
+    @Produces("text/plain")
+    public double getBalance(@PathParam("email") String email, @PathParam("password") int password,
+            @PathParam("accNum") int accNum, @PathParam("amount") int amount) {
+        return accountService.getWithdrawal(email, password, accNum, amount);
+    }
+
     @Path("/{accNum}/transactions")
     public TransactionResource getTransactionResource() {
         return new TransactionResource();
