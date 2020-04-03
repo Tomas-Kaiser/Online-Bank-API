@@ -23,10 +23,10 @@ public class AccountResource {
     private AccountService accountService = new AccountService();
 
     @GET
-    public List<Account> getAllAccounts(@PathParam("email") String email, @PathParam("password") int password){
+    public List<Account> getAllAccounts(@PathParam("email") String email, @PathParam("password") int password) {
         return accountService.getAllAccounts(email, password);
     }
-    
+
     @POST
     public Account getCreateAccount(@PathParam("email") String email, @PathParam("password") int password, Account acc) {
         return accountService.getCreateAccount(email, password, acc);
@@ -36,6 +36,13 @@ public class AccountResource {
     @Path("/{accNum}")
     public Account getAccount(@PathParam("email") String email, @PathParam("password") int password, @PathParam("accNum") int accNum) {
         return accountService.getAccount(email, password, accNum);
+    }
+
+    @GET
+    @Path("/{accNum}/balance")
+    @Produces("text/plain")
+    public double getBalance(@PathParam("email") String email, @PathParam("password") int password, @PathParam("accNum") int accNum) {
+        return accountService.getBalance(email, password, accNum);
     }
 
     @Path("/{accNum}/transactions")

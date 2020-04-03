@@ -28,7 +28,7 @@ public class AccountService {
                 return c.getAccounts();
             }
         }
-   
+
         return null;
     }
 
@@ -42,16 +42,23 @@ public class AccountService {
             if (c.getEmail().equalsIgnoreCase(email) && c.getSecurityCredential() == password) {
                 acc.setId(c.getAccounts().size() + 1);
                 acc.setAccountNumber(createAccountNumber());
-                
+
                 List<Transaction> emptyList = new ArrayList();
                 acc.setTransactions(emptyList);
-                
+
                 c.getAccounts().add(acc);
 
                 return acc;
             }
         }
         return null;
+    }
+
+    public Double getBalance(String email, int password, int accNum) {
+        Account acc = selectAccount(email, password, accNum);
+        System.out.println("****************************************");
+        System.out.println("Ballance: " + acc.getCurrentBalance());
+        return acc.getCurrentBalance();
     }
 
     private Account selectAccount(String email, int password, int accNum) {
