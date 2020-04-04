@@ -31,7 +31,8 @@ public class TransactionResource {
     }
     
     @POST
-    public Transaction getCreateTransaction(@PathParam("email") String email, @PathParam("password") int password, @PathParam("accNum") int accNum, Transaction tran){
+    public Transaction getCreateTransaction(@PathParam("email") String email, @PathParam("password") int password,
+            @PathParam("accNum") int accNum, Transaction tran){
         return transactionService.getCreateTransaction(email, password, accNum, tran);
     }
 }

@@ -7,8 +7,10 @@ import com.mycompany.onlinebankingservice.databases.Database;
 import com.mycompany.onlinebankingservice.models.Account;
 import com.mycompany.onlinebankingservice.models.Customer;
 import com.mycompany.onlinebankingservice.models.Transaction;
+import com.mycompany.onlinebankingservice.resources.TransactionResource;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -21,6 +23,7 @@ public class AccountService {
 
     private List<Customer> customers = db.getAllCustomers();
     //private List<Account> accounts = db.getAllAccountDB();
+    private TransactionService transactionService = new TransactionService();
 
     public List<Account> getAllAccounts(String email, int password) {
         for (Customer c : customers) {
@@ -63,6 +66,15 @@ public class AccountService {
         Account acc = selectAccount(email, password, accNum);
         double newBalance = acc.getCurrentBalance() - amount;
         acc.setCurrentBalance(newBalance);
+
+        Transaction tran = new Transaction();
+
+        tran.setCreated(new Date());
+        tran.setDescription("Withdrawal " + amount + " - remaining balance is " + newBalance);
+        tran.setId(acc.getTransactions().size() + 1);
+
+        transactionService.getCreateTransaction(email, password, accNum, tran);
+
         return newBalance;
     }
 
@@ -70,6 +82,15 @@ public class AccountService {
         Account acc = selectAccount(email, password, accNum);
         double newBalance = acc.getCurrentBalance() + amount;
         acc.setCurrentBalance(newBalance);
+
+        Transaction tran = new Transaction();
+
+        tran.setCreated(new Date());
+        tran.setDescription("Lodgement " + amount + " - remaining balance is " + newBalance);
+        tran.setId(acc.getTransactions().size() + 1);
+
+        transactionService.getCreateTransaction(email, password, accNum, tran);
+
         return newBalance;
     }
 
@@ -77,6 +98,14 @@ public class AccountService {
         Account accSender = selectAccount(email, password, accNum);
         double newBalance = accSender.getCurrentBalance() - amount;
         accSender.setCurrentBalance(newBalance);
+
+        Transaction tranSend = new Transaction();
+
+        tranSend.setCreated(new Date());
+        tranSend.setDescription("Transfer: sending " + amount + " to " + accNumReceiver + " - remaining balance is " + newBalance);
+        tranSend.setId(accSender.getTransactions().size() + 1);
+
+        transactionService.getCreateTransaction(email, password, accNum, tranSend);
 
         Account accReceiver = new Account();
         for (Customer c : customers) {
@@ -86,10 +115,19 @@ public class AccountService {
                 }
             }
         }
-        
+
         newBalance = accReceiver.getCurrentBalance() + amount;
         accReceiver.setCurrentBalance(newBalance);
         
+        Transaction tranReceive = new Transaction();
+        
+        tranReceive.setCreated(new Date());
+        tranReceive.setDescription("Transfer: receiving " + amount + " from " + accNum + " - remaining balance is " + newBalance);
+        tranReceive.setId(accSender.getTransactions().size() + 1);
+        
+        // Todo create a new overloading method as we do not need the email and password for receiver
+        transactionService.getCreateTransaction(email, password, accNumReceiver, tranReceive);
+
         return newBalance;
     }
 
