@@ -24,10 +24,12 @@ public class CustomerResource {
 
     private CustomerService customerService = new CustomerService();
     
+    /*
     @GET
     public List<Customer> getAllCustomers(){
         return customerService.getAllCustomers();
     }
+    */
     
     /*
     @GET
@@ -40,7 +42,10 @@ public class CustomerResource {
     @GET
     @Path("/{email}/{password}")
     public Customer getCustomer(@PathParam("email") String email, @PathParam("password") int password){
-        return customerService.getCustomer(email, password);
+       if (email != null &&  password != 0){
+            return customerService.getCustomer(email, password);
+       }
+       return null;       
     }
     
     @POST
