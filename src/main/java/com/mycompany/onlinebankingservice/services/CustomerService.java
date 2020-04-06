@@ -6,6 +6,7 @@ package com.mycompany.onlinebankingservice.services;
 import com.mycompany.onlinebankingservice.databases.Database;
 import com.mycompany.onlinebankingservice.models.Account;
 import com.mycompany.onlinebankingservice.models.Customer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -33,6 +34,9 @@ public class CustomerService {
     public Customer getCreateCustomer(Customer c) {
         c.setId(customers.size() + 1);
         customers.add(c);
+        
+        List<Account> emptyList = new ArrayList();
+        c.setAccounts(emptyList);
 
         return c;
     }

@@ -14,16 +14,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Customer {
     private int id;
-    private String Address;
+    private String address;
     private String email;
     private int securityCredential;
     private List<Account> accounts;
     
     public Customer(){}
 
-    public Customer(int id, String Address, String email, int securityCredential, List<Account> accounts) {
+    public Customer(int id, String address, String email, int securityCredential, List<Account> accounts) {
         this.id = id;
-        this.Address = Address;
+        this.address = address;
         this.email = email;
         this.securityCredential = securityCredential;
         this.accounts = accounts;
@@ -47,14 +47,14 @@ public class Customer {
      * @return the Address
      */
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     /**
      * @param Address the Address to set
      */
     public void setAddress(String Address) {
-        this.Address = Address;
+        this.address = Address;
     }
 
     /**

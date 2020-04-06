@@ -24,12 +24,12 @@ public class CustomerResource {
 
     private CustomerService customerService = new CustomerService();
     
-    /*
+    
     @GET
     public List<Customer> getAllCustomers(){
         return customerService.getAllCustomers();
     }
-    */
+    
     
     /*
     @GET
