@@ -129,10 +129,12 @@ public class AccountService {
         transactionService.getCreateTransaction(email, password, accNum, tranSend);
 
         Account accReceiver = new Account();
+        Customer customerReceiver = new Customer();
         for (Customer c : customers) {
             for (Account a : c.getAccounts()) {
                 if (a.getAccountNumber() == accNumReceiver) {
                     accReceiver = a;
+                    customerReceiver = c;
                 }
             }
         }
@@ -140,14 +142,14 @@ public class AccountService {
         newBalance = accReceiver.getCurrentBalance() + amount;
         accReceiver.setCurrentBalance(newBalance);
 
-        Transaction tranReceive = new Transaction();
+        Transaction tranReceiver = new Transaction();
 
-        tranReceive.setCreated(new Date());
-        tranReceive.setDescription("Transfer: receiving " + amount + " from " + accNum + " - remaining balance is " + newBalance);
-        tranReceive.setId(accSender.getTransactions().size() + 1);
+        tranReceiver.setCreated(new Date());
+        tranReceiver.setDescription("Transfer: receiving " + amount + " from " + accNum + " - remaining balance is " + newBalance);
+        tranReceiver.setId(accSender.getTransactions().size() + 1);
 
         // Todo create a new overloading method as we do not need the email and password for receiver
-        transactionService.getCreateTransaction(email, password, accNumReceiver, tranReceive);
+        transactionService.getCreateTransaction(customerReceiver.getEmail(), customerReceiver.getSecurityCredential(), accNumReceiver, tranReceiver);
 
         return newBalance;
     }
