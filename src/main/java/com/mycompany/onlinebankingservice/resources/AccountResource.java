@@ -6,6 +6,7 @@ package com.mycompany.onlinebankingservice.resources;
 import com.mycompany.onlinebankingservice.models.Account;
 import com.mycompany.onlinebankingservice.services.AccountService;
 import java.util.List;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -36,6 +37,13 @@ public class AccountResource {
     @Path("/{accNum}")
     public Account getAccount(@PathParam("email") String email, @PathParam("password") int password, @PathParam("accNum") int accNum) {
         return accountService.getAccount(email, password, accNum);
+    }
+    
+    @DELETE
+    @Path("/{accNum}")
+    @Produces("text/plain")
+    public String gerRemoveAccount(@PathParam("email")String email, @PathParam("password") int password, @PathParam("accNum") int accNum){
+        return accountService.getRemoveAccount(email, password, accNum);
     }
 
     @GET

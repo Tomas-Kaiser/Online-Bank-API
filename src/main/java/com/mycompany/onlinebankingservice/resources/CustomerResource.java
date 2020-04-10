@@ -48,6 +48,7 @@ public class CustomerResource {
        return null;       
     }
     
+    // TODO: validation! Check if the received data are valid.
     @POST
     public Customer createCustomer(Customer c){
         return customerService.getCreateCustomer(c);

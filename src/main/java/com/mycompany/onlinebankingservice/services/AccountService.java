@@ -40,6 +40,27 @@ public class AccountService {
         return selectAccount(email, password, accNum);
     }
 
+    public String getRemoveAccount(String email, int password, int accNum) {
+        for (Customer c : customers) {
+            if (c.getEmail().equalsIgnoreCase(email) && c.getSecurityCredential() == password) {
+
+                int pos = 0;
+                
+                for (Account a : c.getAccounts()){
+                    if (a.getAccountNumber() == accNum){
+                        c.getAccounts().remove(pos);
+                        break;
+                    }
+                    pos++;
+                }
+
+                System.out.println("Account removed!!!!");
+                return "Account removed!";
+            }
+        }
+        return "Account did not found";
+    }
+
     public Account getCreateAccount(String email, int password, Account acc) {
         for (Customer c : customers) {
             if (c.getEmail().equalsIgnoreCase(email) && c.getSecurityCredential() == password) {
@@ -118,13 +139,13 @@ public class AccountService {
 
         newBalance = accReceiver.getCurrentBalance() + amount;
         accReceiver.setCurrentBalance(newBalance);
-        
+
         Transaction tranReceive = new Transaction();
-        
+
         tranReceive.setCreated(new Date());
         tranReceive.setDescription("Transfer: receiving " + amount + " from " + accNum + " - remaining balance is " + newBalance);
         tranReceive.setId(accSender.getTransactions().size() + 1);
-        
+
         // Todo create a new overloading method as we do not need the email and password for receiver
         transactionService.getCreateTransaction(email, password, accNumReceiver, tranReceive);
 
