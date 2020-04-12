@@ -7,6 +7,7 @@ package com.mycompany.onlinebankingservice.resources;
 import com.mycompany.onlinebankingservice.models.Customer;
 import com.mycompany.onlinebankingservice.services.CustomerService;
 import java.util.List;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -30,15 +31,12 @@ public class CustomerResource {
         return customerService.getAllCustomers();
     }
     
-    
-    /*
-    @GET
-    @Path("/{customerId}")
-    public Customer getCustomerById(@PathParam("customerId") int id){
-        return customerService.getCustomerById(id);
+    @DELETE
+    @Path("/{email}/{password}")
+    public String getRemoveCustomer(@PathParam("email") String email, @PathParam("password") int password){
+        return customerService.getRemoveCustomer(email, password);
     }
-    */
-    
+        
     @GET
     @Path("/{email}/{password}")
     public Customer getCustomer(@PathParam("email") String email, @PathParam("password") int password){

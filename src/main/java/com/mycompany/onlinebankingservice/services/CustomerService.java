@@ -34,11 +34,23 @@ public class CustomerService {
     public Customer getCreateCustomer(Customer c) {
         c.setId(customers.size() + 1);
         customers.add(c);
-        
+
         List<Account> emptyList = new ArrayList();
         c.setAccounts(emptyList);
 
         return c;
+    }
+
+    public String getRemoveCustomer(String email, int password) {
+        int pos = 0;
+        for (Customer c : customers) {
+            if ((c.getEmail().equalsIgnoreCase(email)) && c.getSecurityCredential() == password) {
+                customers.remove(pos);
+                return "Customer has been deleted!";
+            }
+            pos++;           
+        }
+        return "Customer does not exist!";
     }
 
     private Customer selectCustomer(String email, int password) {
