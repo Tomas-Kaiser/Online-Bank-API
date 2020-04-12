@@ -30,7 +30,7 @@ public class Database {
             Account acc1 = new Account(1, 112233, 11112222, 8_000, true, false, getAllTransactionsDB());
             accountDB.add(acc1);
 
-            Customer c1 = new Customer(1, "Byrnes Lane, Dublin 2", "tom@gmail.com", 1234, getAllAccountDB());
+            Customer c1 = new Customer(1, "Pearse Street, Dublin 2", "tom@gmail.com", 1234, getAllAccountDB());
             customersDB.add(c1);
 
             init = true;
