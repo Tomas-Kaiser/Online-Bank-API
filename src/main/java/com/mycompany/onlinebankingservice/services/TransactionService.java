@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class TransactionService {
 
-    Database db = new Database();
+    private Database db = new Database();
 
     private List<Customer> customers = db.getAllCustomers();
 
