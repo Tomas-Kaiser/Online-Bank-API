@@ -17,7 +17,7 @@ public class TransactionService {
 
     private Database db = new Database();
 
-    private List<Customer> customers = db.getAllCustomers();
+    private List<Customer> customers = db.getAllCustomersDB();
 
     public List<Transaction> getAllTransaction(String email, int password, int accNum) {
         // Select the customer

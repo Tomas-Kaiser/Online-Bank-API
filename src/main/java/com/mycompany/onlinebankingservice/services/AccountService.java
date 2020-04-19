@@ -21,7 +21,7 @@ public class AccountService {
 
     private Database db = new Database();
 
-    private List<Customer> customers = db.getAllCustomers();
+    private List<Customer> customers = db.getAllCustomersDB();
     //private List<Account> accounts = db.getAllAccountDB();
     private TransactionService transactionService = new TransactionService();
 

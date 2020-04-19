@@ -30,14 +30,14 @@ public class Database {
             Account acc1 = new Account(1, 112233, 11112222, 8_000, true, false, getAllTransactionsDB());
             accountsDB.add(acc1);
 
-            Customer c1 = new Customer(1, "Pearse Street, Dublin 2", "tom@gmail.com", 1234, getAllAccountDB());
+            Customer c1 = new Customer(1, "Pearse Street, Dublin 2", "tom@gmail.com", 1234, getAllAccountsDB());
             customersDB.add(c1);
 
             init = true;
         }
     }
 
-    public List<Customer> getAllCustomers() {
+    public List<Customer> getAllCustomersDB() {
         return customersDB;
     }
 
@@ -51,7 +51,7 @@ public class Database {
     /**
      * @return the accountDB
      */
-    public List<Account> getAllAccountDB() {
+    public List<Account> getAllAccountsDB() {
         return accountsDB;
     }
 

@@ -17,7 +17,7 @@ public class CustomerService {
 
     private Database db = new Database();
 
-    private List<Customer> customers = db.getAllCustomers();
+    private List<Customer> customers = db.getAllCustomersDB();
 
     public List<Customer> getAllCustomers() {
         return customers;
