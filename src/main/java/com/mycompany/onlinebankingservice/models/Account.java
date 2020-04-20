@@ -1,15 +1,8 @@
-/*
- * Copyright 2020, Tomas.
- */
-
 package com.mycompany.onlinebankingservice.models;
 
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- * @author Tomas
- */
 @XmlRootElement
 public class Account {
     private int id;

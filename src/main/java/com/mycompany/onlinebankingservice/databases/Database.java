@@ -1,6 +1,3 @@
-/*
- * Copyright 2020, Tomas.
- */
 package com.mycompany.onlinebankingservice.databases;
 
 import com.mycompany.onlinebankingservice.models.Account;
@@ -10,9 +7,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author Tomas
- */
 public class Database {
     private static List<Transaction> transactionsDB = new ArrayList<>();
     private static List<Account> accountsDB = new ArrayList<>();

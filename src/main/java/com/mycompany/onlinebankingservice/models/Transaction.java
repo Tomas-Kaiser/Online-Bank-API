@@ -1,15 +1,7 @@
-/*
- * Copyright 2020, Tomas.
- */
-
 package com.mycompany.onlinebankingservice.models;
 
 import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
-
-/**
- * @author Tomas
- */
 
 @XmlRootElement
 public class Transaction {
