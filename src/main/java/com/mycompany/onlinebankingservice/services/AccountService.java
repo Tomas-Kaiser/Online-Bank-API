@@ -119,6 +119,7 @@ public class AccountService {
     
     // Create a transfer between two accounts and create a transaction
     public Double getTransfer(String email, int password, int accNum, int accNumReceiver, double amount) {
+        // Sender
         Account accSender = selectAccount(email, password, accNum);
         double newBalance = accSender.getCurrentBalance() - amount;
         accSender.setCurrentBalance(newBalance);
@@ -130,7 +131,8 @@ public class AccountService {
         tranSend.setId(accSender.getTransactions().size() + 1);
 
         transactionService.getCreateTransaction(email, password, accNum, tranSend);
-
+        
+        // Receiver
         Account accReceiver = new Account();
         Customer customerReceiver = new Customer();
         for (Customer c : customers) {
