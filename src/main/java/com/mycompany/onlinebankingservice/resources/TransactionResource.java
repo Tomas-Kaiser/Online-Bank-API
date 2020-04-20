@@ -1,7 +1,3 @@
-/*
- * Copyright 2020, Tomas.
- */
-
 package com.mycompany.onlinebankingservice.resources;
 
 import com.mycompany.onlinebankingservice.models.Transaction;
@@ -13,10 +9,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
-/**
- * @author Tomas
- */
 
 @Path("/transactions")
 @Produces(MediaType.APPLICATION_JSON)

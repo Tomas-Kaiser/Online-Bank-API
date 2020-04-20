@@ -1,6 +1,3 @@
-/*
- * Copyright 2020, Tomas.
- */
 package com.mycompany.onlinebankingservice.services;
 
 import com.mycompany.onlinebankingservice.databases.Database;
@@ -10,9 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author Tomas
- */
 public class CustomerService {
 
     private Database db = new Database();

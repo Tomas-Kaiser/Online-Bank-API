@@ -1,6 +1,3 @@
-/*
- * Copyright 2020, Tomas.
- */
 package com.mycompany.onlinebankingservice.services;
 
 import com.mycompany.onlinebankingservice.databases.Database;
@@ -10,9 +7,6 @@ import com.mycompany.onlinebankingservice.models.Transaction;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author Tomas
- */
 public class TransactionService {
 
     private Database db = new Database();
