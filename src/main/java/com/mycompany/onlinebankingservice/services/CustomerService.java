@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Random;
 
 public class CustomerService {
-
+    
+    // Initialize database
     private Database db = new Database();
 
     private List<Customer> customers = db.getAllCustomersDB();

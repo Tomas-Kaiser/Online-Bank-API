@@ -9,8 +9,10 @@ import java.util.List;
 
 public class TransactionService {
 
+    // Initialize database
     private Database db = new Database();
 
+    // Store all customers in a list
     private List<Customer> customers = db.getAllCustomersDB();
 
     public List<Transaction> getAllTransaction(String email, int password, int accNum) {
