@@ -14,12 +14,12 @@ import java.util.List;
  * @author Tomas
  */
 public class Database {
-
     private static List<Transaction> transactionsDB = new ArrayList<>();
     private static List<Account> accountsDB = new ArrayList<>();
     public static List<Customer> customersDB = new ArrayList<>();
     public static boolean init = false;
 
+    // Initialize database with one cusotmer which has one account along with two transactions
     public Database() {
         if (!init) {
             Transaction t1 = new Transaction(1, true, false, new Date(), "This is a transaction 1");
@@ -36,7 +36,10 @@ public class Database {
             init = true;
         }
     }
-
+    
+    /**
+     * @return the customersDB
+     */
     public List<Customer> getAllCustomersDB() {
         return customersDB;
     }
