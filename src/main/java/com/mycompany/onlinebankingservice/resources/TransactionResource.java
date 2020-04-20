@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class TransactionResource {
     
+    // Initialize transactionService object
     private TransactionService transactionService = new TransactionService();
     
     // Get all transaction related to the customer and type of account
@@ -22,6 +23,7 @@ public class TransactionResource {
         return transactionService.getAllTransaction(email, password, accNum);
     }
     
+    // Create a transaction
     @POST
     public Transaction getCreateTransaction(@PathParam("email") String email, @PathParam("password") int password,
             @PathParam("accNum") int accNum, Transaction tran){

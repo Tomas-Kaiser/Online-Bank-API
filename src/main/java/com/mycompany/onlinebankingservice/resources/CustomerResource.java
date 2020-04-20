@@ -14,21 +14,24 @@ import javax.ws.rs.core.MediaType;
 @Path("/customers")
 @Produces(MediaType.APPLICATION_JSON)
 public class CustomerResource {
-
+    
+    // Initialize customerServvice object
     private CustomerService customerService = new CustomerService();
     
-    
+    // Return a list of all customers
     @GET
     public List<Customer> getAllCustomers(){
         return customerService.getAllCustomers();
     }
     
+    // Delete a spacific account based on email and password
     @DELETE
     @Path("/{email}/{password}")
     public String getRemoveCustomer(@PathParam("email") String email, @PathParam("password") int password){
         return customerService.getRemoveCustomer(email, password);
     }
-        
+    
+    // Return a specific customer account based on email and password
     @GET
     @Path("/{email}/{password}")
     public Customer getCustomer(@PathParam("email") String email, @PathParam("password") int password){
@@ -38,12 +41,13 @@ public class CustomerResource {
        return null;       
     }
     
-    // TODO: validation! Check if the received data are valid.
+    // Creating a new customer account passing a JSON object c
     @POST
     public Customer createCustomer(Customer c){
         return customerService.getCreateCustomer(c);
     }
     
+    // Connecting to SubResource (account resource)
     @Path("/{email}/{password}/accounts")
     public AccountResource getAccountResource(){
         return new AccountResource();
