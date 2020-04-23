@@ -36,16 +36,16 @@ public class AccountService {
     public Account getAccount(String email, int password, int accNum) {
         return selectAccount(email, password, accNum);
     }
-    
+
     // Remove a particular account
     public String getRemoveAccount(String email, int password, int accNum) {
         for (Customer c : customers) {
             if (c.getEmail().equalsIgnoreCase(email) && c.getSecurityCredential() == password) {
 
                 int pos = 0;
-                
-                for (Account a : c.getAccounts()){
-                    if (a.getAccountNumber() == accNum){
+
+                for (Account a : c.getAccounts()) {
+                    if (a.getAccountNumber() == accNum) {
                         c.getAccounts().remove(pos);
                         break;
                     }
@@ -58,7 +58,7 @@ public class AccountService {
         }
         return "Account did not found";
     }
-    
+
     // Create an account
     public Account getCreateAccount(String email, int password, Account acc) {
         for (Customer c : customers) {
@@ -76,13 +76,22 @@ public class AccountService {
         }
         return null;
     }
-    
+
     // Return a balance for a particular account
     public Double getBalance(String email, int password, int accNum) {
         Account acc = selectAccount(email, password, accNum);
+
+        // Creata log in transaction that the user checked their account
+        Transaction tran = new Transaction();
+        tran.setCreated(new Date());
+        tran.setDescription("You asked for current balance. Current balance is: " + acc.getCurrentBalance());
+        tran.setId(acc.getTransactions().size() + 1);
+        
+        transactionService.getCreateTransaction(email, password, accNum, tran);
+
         return acc.getCurrentBalance();
     }
-    
+
     // Return amount of withdrawal and create transaction
     public Double getWithdrawal(String email, int password, int accNum, double amount) {
         Account acc = selectAccount(email, password, accNum);
@@ -99,7 +108,7 @@ public class AccountService {
 
         return newBalance;
     }
-    
+
     // Return amount of lodgement and create a transaction
     public Double getLodgement(String email, int password, int accNum, double amount) {
         Account acc = selectAccount(email, password, accNum);
@@ -116,7 +125,7 @@ public class AccountService {
 
         return newBalance;
     }
-    
+
     // Create a transfer between two accounts and create a transaction
     public Double getTransfer(String email, int password, int accNum, int accNumReceiver, double amount) {
         // Sender
@@ -131,7 +140,7 @@ public class AccountService {
         tranSend.setId(accSender.getTransactions().size() + 1);
 
         transactionService.getCreateTransaction(email, password, accNum, tranSend);
-        
+
         // Receiver
         Account accReceiver = new Account();
         Customer customerReceiver = new Customer();
@@ -157,7 +166,7 @@ public class AccountService {
 
         return newBalance;
     }
-    
+
     // Selecting an account
     private Account selectAccount(String email, int password, int accNum) {
         for (Customer c : customers) {
@@ -176,7 +185,7 @@ public class AccountService {
         }
         return null;
     }
-    
+
     // Creating a random number
     private int createAccountNumber() {
         Random randomNum = new Random();
